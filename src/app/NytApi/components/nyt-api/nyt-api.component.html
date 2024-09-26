@@ -1,0 +1,45 @@
+<div class="container">
+    <h2>NY Times Top Stories</h2>
+  
+    
+    <form (ngSubmit)="submitApiKey()">
+      <div class="form-group">
+        <label for="apiKey">Enter API Key:</label>
+        <input type="text" class="form-control" id="apiKey" [(ngModel)]="apiKey" name="apiKey" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  
+    
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+
+    <h3>Stored Stories</h3>
+    <table class="table table-striped" *ngIf="stories.length > 0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Byline</th>
+          <th>Section</th>
+          <th>Published Date</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let story of stories">
+          <td>{{ story.title }}</td>
+          <td>{{ story.byline }}</td>
+          <td>{{ story.section }}</td>
+          <td>{{ story.publishedDate | date: 'short' }}</td>
+          <td><a [href]="story.url" target="_blank">Read more</a></td>
+        </tr>
+      </tbody>
+    </table>
+  
+
+    <div *ngIf="stories.length === 0" class="alert alert-info">
+      No stories available. Submit API key to fetch stories.
+    </div>
+  </div>
+  
